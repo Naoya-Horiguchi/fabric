@@ -1,0 +1,10 @@
+FROM hyperledger/fabric-orderer:1.4.1-minbft
+RUN apt-get update
+RUN apt-get install -y libssl1.0.0 make
+
+ADD https://download.01.org/intel-sgx/linux-2.3.1/ubuntu16.04/sgx_linux_x64_sdk_2.3.101.46683.bin /opt
+
+RUN bash -c "chmod +x /opt/sgx_linux_x64_sdk_2.3.101.46683.bin ; printf 'no\n/opt/intel\n' | /opt/sgx_linux_x64_sdk_2.3.101.46683.bin"
+
+RUN mkdir -p /var/hyperledger/orderer/minbft-artifacts
+COPY minbft-artifacts/ /var/hyperledger/orderer/minbft-artifacts/

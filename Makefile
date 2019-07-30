@@ -109,6 +109,8 @@ pkgmap.orderer        := $(PKGNAME)/orderer
 pkgmap.block-listener := $(PKGNAME)/examples/events/block-listener
 pkgmap.discover       := $(PKGNAME)/cmd/discover
 
+SGX_MODE ?= null
+
 include docker-env.mk
 
 all: native docker checks
@@ -235,7 +237,11 @@ $(BUILD_DIR)/docker/bin/%: $(PROJECT_FILES)
 	@$(DRUN) \
 		-v $(abspath $(BUILD_DIR)/docker/bin):/opt/gopath/bin \
 		-v $(abspath $(BUILD_DIR)/docker/$(TARGET)/pkg):/opt/gopath/pkg \
-		$(BASE_DOCKER_NS)/fabric-baseimage:$(BASE_DOCKER_TAG) \
+		-v /usr/bin/pkg-config:/usr/local/bin/pkg-config \
+		-e LD_LIBRARY_PATH=/opt/intel/sgxsdk/lib64 \
+		-e GO111MODULE=on -e GOCACHE=/tmp -e SGX_MODE=$(SGX_MODE) \
+		-e PKG_CONFIG_PATH=/opt/intel/sgxsdk/pkgconfig \
+		$(BASE_DOCKER_NS)/fabric-baseimage:minbft \
 		go install -tags "$(GO_TAGS)" -ldflags "$(DOCKER_GO_LDFLAGS)" $(pkgmap.$(@F))
 	@touch $@
 
