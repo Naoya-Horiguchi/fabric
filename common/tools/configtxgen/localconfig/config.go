@@ -44,6 +44,8 @@ const (
 	// only the sample MSP and uses solo for ordering.
 	SampleSingleMSPSoloProfile = "SampleSingleMSPSolo"
 
+	SampleSingleNodeMinbftProfile = "SampleSingleNodeMinbft"
+
 	// SampleInsecureKafkaProfile references the sample profile which does not
 	// include any MSPs and uses Kafka for ordering.
 	SampleInsecureKafkaProfile = "SampleInsecureKafka"
@@ -387,6 +389,8 @@ loop:
 	switch ord.OrdererType {
 	case "solo":
 		// nothing to be done here
+	case "minbft":
+		// nothing to be done here for now
 	case "kafka":
 		if ord.Kafka.Brokers == nil {
 			logger.Infof("Orderer.Kafka unset, setting to %v", genesisDefaults.Orderer.Kafka.Brokers)

@@ -47,6 +47,7 @@ import (
 	"github.com/hyperledger/fabric/orderer/consensus"
 	"github.com/hyperledger/fabric/orderer/consensus/etcdraft"
 	"github.com/hyperledger/fabric/orderer/consensus/kafka"
+	"github.com/hyperledger/fabric/orderer/consensus/minbft"
 	"github.com/hyperledger/fabric/orderer/consensus/solo"
 	cb "github.com/hyperledger/fabric/protos/common"
 	ab "github.com/hyperledger/fabric/protos/orderer"
@@ -574,6 +575,7 @@ func initializeMultichannelRegistrar(
 	registrar := multichannel.NewRegistrar(lf, signer, metricsProvider, callbacks...)
 
 	consenters["solo"] = solo.New()
+	consenters["minbft"] = minbft.New()
 	var kafkaMetrics *kafka.Metrics
 	consenters["kafka"], kafkaMetrics = kafka.New(conf, metricsProvider, healthChecker, registrar)
 	// Note, we pass a 'nil' channel here, we could pass a channel that
