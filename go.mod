@@ -70,7 +70,10 @@ require (
 )
 
 replace github.com/golang/lint => golang.org/x/lint v0.0.0-20190409202823-959b441ac422
-
-// replace github.com/hyperledger-labs/minbft => github.com/Naoya-Horiguchi/minbft latest
-replace github.com/hyperledger-labs/minbft => github.com/hyperledger-labs/minbft v0.0.0-20190613225342-5bf88a7e744b
 replace github.com/go-kit/kit => github.com/go-kit/kit v0.8.0
+
+// for debugging
+// replace github.com/hyperledger-labs/minbft => github.com/hyperledger-labs/minbft v0.0.0-20190613225342-5bf88a7e744b
+// replace github.com/hyperledger-labs/minbft => github.com/Naoya-Horiguchi/minbft v0.0.0-20190730054554-f7439279a08e
+// replace github.com/hyperledger-labs/minbft => github.com/Naoya-Horiguchi/minbft v0.0.0-20190712021344-820881db4b3f
+// replace github.com/spf13/viper => github.com/spf13/viper v0.0.0-20151224114444-105e3d0d1939
